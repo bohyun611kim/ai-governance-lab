@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
-  const supabase = createClient()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
@@ -12,6 +11,7 @@ export default function LoginPage() {
   async function handleSignIn(e: React.FormEvent) {
     e.preventDefault()
     setMessage('')
+    const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     setMessage(error ? `로그인 실패: ${error.message}` : '로그인 성공')
   }
@@ -19,12 +19,14 @@ export default function LoginPage() {
   async function handleSignUp(e: React.FormEvent) {
     e.preventDefault()
     setMessage('')
+    const supabase = createClient()
     const { error } = await supabase.auth.signUp({ email, password })
     setMessage(error ? `회원가입 실패: ${error.message}` : '회원가입 성공 (즉시 로그인 가능)')
   }
 
   async function handleSignOut() {
     setMessage('')
+    const supabase = createClient()
     const { error } = await supabase.auth.signOut()
     setMessage(error ? `로그아웃 실패: ${error.message}` : '로그아웃 성공')
   }
