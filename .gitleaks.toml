@@ -1,0 +1,20 @@
+# gitleaks 설정
+# 참고: https://github.com/gitleaks/gitleaks#configuration
+
+title = "ai-governance-lab gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "프로젝트 오탐 허용 목록"
+paths = [
+  # 잠금 파일은 해시가 많아 오탐 가능
+  '''pnpm-lock\.yaml$''',
+  # 문서/핸드오프는 예시 키 포함 가능
+  '''HANDOFF.*\.txt$''',
+]
+regexes = [
+  # CI에서 쓰는 명백한 더미 키
+  '''sb_publishable_ci_dummy_key''',
+]
